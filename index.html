@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlamourGlow - Premium Beauty Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fdfcfb 0%, #f5f7fa 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: #ffebee;
+            transform: translateY(-2px);
+        }
+        
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 5px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .language-switcher:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .language-options {
+            position: absolute;
+            top: 70px;
+            right: 5%;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: none;
+            z-index: 10;
+        }
+        
+        .language-options.show {
+            display: block;
+        }
+        
+        .language-option {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .language-option:hover {
+            background: #f8f9fa;
+        }
+        
+        .hero {
+            padding: 5rem 5%;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1522338242992-e1a54906a8da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            color: white;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 82, 82, 0.4);
+        }
+        
+        .categories {
+            padding: 4rem 5%;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #444;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #ff6b6b;
+            border-radius: 2px;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .category-content {
+            padding: 1.5rem;
+        }
+        
+        .category-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+        
+        .featured {
+            padding: 4rem 5%;
+            background: #fff9fb;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-img {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+        
+        .product-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        
+        .about {
+            padding: 4rem 5%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #444;
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .benefit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .benefit i {
+            color: #ff6b6b;
+            font-size: 1.5rem;
+        }
+        
+        .newsletter {
+            padding: 5rem 5%;
+            background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+            text-align: center;
+            color: white;
+        }
+        
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 0 30px 30px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background: #ff5252;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            padding: 3rem 5% 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #ff6b6b;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #ff6b6b;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #444;
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: #ff6b6b;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+                border-radius: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Language Switcher -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-spa"></i>
+            <h1>GlamourGlow</h1>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#" data-i18n="home">Home</a></li>
+                <li><a href="#" data-i18n="products">Products</a></li>
+                <li><a href="#" data-i18n="categories">Categories</a></li>
+                <li><a href="#" data-i18n="about">About</a></li>
+                <li><a href="#" data-i18n="contact">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="language-switcher" id="languageSwitcher">
+            <i class="fas fa-globe"></i>
+            <span data-i18n="language">English</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        
+        <div class="language-options" id="languageOptions">
+            <a href="#" class="language-option" data-lang="en">
+                <i class="fas fa-language"></i>
+                <span>English</span>
+            </a>
+            <a href="#" class="language-option" data-lang="es">
+                <i class="fas fa-language"></i>
+                <span>Español</span>
+            </a>
+            <a href="#" class="language-option" data-lang="zh">
+                <i class="fas fa-language"></i>
+                <span>中文</span>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 data-i18n="hero-title">Discover Your Natural Beauty</h2>
+            <p data-i18n="hero-subtitle">Premium skincare and cosmetics for radiant, healthy-looking skin</p>
+            <a href="#" class="btn" data-i18n="shop-now">Shop Now</a>
+        </div>
+    </section>
+    
+    <!-- Categories Section -->
+    <section class="categories">
+        <h2 class="section-title" data-i18n="categories-title">Shop by Category</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-img" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="category-content">
+                    <h3 data-i18n="skincare">Skincare</h3>
+                    <p data-i18n="skincare-desc">Cleansers, moisturizers, serums</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1526045431048-f857369baa09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="category-content">
+                    <h3 data-i18n="makeup">Makeup</h3>
+                    <p data-i18n="makeup-desc">Foundation, lipstick, eyeshadow</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="category-content">
+                    <h3 data-i18n="haircare">Hair Care</h3>
+                    <p data-i18n="haircare-desc">Shampoo, conditioner, treatments</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1595425977377-6aaf0725b3a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="category-content">
+                    <h3 data-i18n="fragrance">Fragrance</h3>
+                    <p data-i18n="fragrance-desc">Perfumes, body mists, candles</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Products -->
+    <section class="featured">
+        <h2 class="section-title" data-i18n="featured-title">Featured Products</h2>
+        <div class="products">
+            <div class="product-card">
+                <div class="product-img" style="background: url('https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="product-info">
+                    <h3 data-i18n="vitamin-c">Vitamin C Brightening Serum</h3>
+                    <p data-i18n="vitamin-c-desc">Brightens skin and reduces dark spots</p>
+                    <div class="price">$42.99</div>
+                    <a href="#" class="btn" data-i18n="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img" style="background: url('https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="product-info">
+                    <h3 data-i18n="hydrating-cream">Hydrating Day Cream</h3>
+                    <p data-i18n="hydrating-cream-desc">24-hour hydration with SPF 30</p>
+                    <div class="price">$34.99</div>
+                    <a href="#" class="btn" data-i18n="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img" style="background: url('https://images.unsplash.com/photo-1571781418606-70265b9cce90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="product-info">
+                    <h3 data-i18n="matte-lipstick">Matte Lipstick Collection</h3>
+                    <p data-i18n="matte-lipstick-desc">Long-lasting vibrant colors</p>
+                    <div class="price">$24.99</div>
+                    <a href="#" class="btn" data-i18n="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about">
+        <div class="about-img" style="background: url('https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="about-content">
+            <h2 data-i18n="about-title">About GlamourGlow</h2>
+            <p data-i18n="about-desc1">At GlamourGlow, we believe beauty comes from embracing your natural self. Our products are crafted with care using ethically sourced, natural ingredients that enhance your natural beauty.</p>
+            <p data-i18n="about-desc2">Founded in 2010 by skincare expert Elena Rodriguez, our mission has always been to create products that are effective, sustainable, and cruelty-free.</p>
+            
+            <div class="benefits">
+                <div class="benefit">
+                    <i class="fas fa-leaf"></i>
+                    <span data-i18n="natural">Natural Ingredients</span>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-recycle"></i>
+                    <span data-i18n="sustainable">Sustainable Packaging</span>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-ban"></i>
+                    <span data-i18n="cruelty">Cruelty-Free</span>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-globe-americas"></i>
+                    <span data-i18n="global">Worldwide Shipping</span>
+                </div>
+            </div>
+            
+            <a href="#" class="btn" data-i18n="learn-more">Learn More</a>
+        </div>
+    </section>
+    
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2 data-i18n="newsletter-title">Join Our Beauty Community</h2>
+        <p data-i18n="newsletter-desc">Subscribe to our newsletter for exclusive offers, beauty tips, and new product launches.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" data-i18n-placeholder="email-placeholder">
+            <button type="submit" data-i18n="subscribe">Subscribe</button>
+        </form>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 data-i18n="footer-company">Company</h3>
+                <ul>
+                    <li><a href="#" data-i18n="footer-about">About Us</a></li>
+                    <li><a href="#" data-i18n="footer-careers">Careers</a></li>
+                    <li><a href="#" data-i18n="footer-press">Press</a></li>
+                    <li><a href="#" data-i18n="footer-sustainability">Sustainability</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 data-i18n="footer-customer">Customer Service</h3>
+                <ul>
+                    <li><a href="#" data-i18n="footer-contact">Contact Us</a></li>
+                    <li><a href="#" data-i18n="footer-faq">FAQ</a></li>
+                    <li><a href="#" data-i18n="footer-shipping">Shipping Policy</a></li>
+                    <li><a href="#" data-i18n="footer-returns">Returns & Exchanges</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 data-i18n="footer-connect">Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p data-i18n="copyright">&copy; 2023 GlamourGlow Beauty. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                "home": "Home",
+                "products": "Products",
+                "categories": "Categories",
+                "about": "About",
+                "contact": "Contact",
+                "language": "English",
+                "hero-title": "Discover Your Natural Beauty",
+                "hero-subtitle": "Premium skincare and cosmetics for radiant, healthy-looking skin",
+                "shop-now": "Shop Now",
+                "categories-title": "Shop by Category",
+                "skincare": "Skincare",
+                "skincare-desc": "Cleansers, moisturizers, serums",
+                "makeup": "Makeup",
+                "makeup-desc": "Foundation, lipstick, eyeshadow",
+                "haircare": "Hair Care",
+                "haircare-desc": "Shampoo, conditioner, treatments",
+                "fragrance": "Fragrance",
+                "fragrance-desc": "Perfumes, body mists, candles",
+                "featured-title": "Featured Products",
+                "vitamin-c": "Vitamin C Brightening Serum",
+                "vitamin-c-desc": "Brightens skin and reduces dark spots",
+                "hydrating-cream": "Hydrating Day Cream",
+                "hydrating-cream-desc": "24-hour hydration with SPF 30",
+                "matte-lipstick": "Matte Lipstick Collection",
+                "matte-lipstick-desc": "Long-lasting vibrant colors",
+                "add-to-cart": "Add to Cart",
+                "about-title": "About GlamourGlow",
+                "about-desc1": "At GlamourGlow, we believe beauty comes from embracing your natural self. Our products are crafted with care using ethically sourced, natural ingredients that enhance your natural beauty.",
+                "about-desc2": "Founded in 2010 by skincare expert Elena Rodriguez, our mission has always been to create products that are effective, sustainable, and cruelty-free.",
+                "natural": "Natural Ingredients",
+                "sustainable": "Sustainable Packaging",
+                "cruelty": "Cruelty-Free",
+                "global": "Worldwide Shipping",
+                "learn-more": "Learn More",
+                "newsletter-title": "Join Our Beauty Community",
+                "newsletter-desc": "Subscribe to our newsletter for exclusive offers, beauty tips, and new product launches.",
+                "email-placeholder": "Your email address",
+                "subscribe": "Subscribe",
+                "footer-company": "Company",
+                "footer-about": "About Us",
+                "footer-careers": "Careers",
+                "footer-press": "Press",
+                "footer-sustainability": "Sustainability",
+                "footer-customer": "Customer Service",
+                "footer-contact": "Contact Us",
+                "footer-faq": "FAQ",
+                "footer-shipping": "Shipping Policy",
+                "footer-returns": "Returns & Exchanges",
+                "footer-connect": "Connect With Us",
+                "copyright": "© 2023 GlamourGlow Beauty. All rights reserved."
+            },
+            es: {
+                "home": "Inicio",
+                "products": "Productos",
+                "categories": "Categorías",
+                "about": "Sobre Nosotros",
+                "contact": "Contacto",
+                "language": "Español",
+                "hero-title": "Descubre Tu Belleza Natural",
+                "hero-subtitle": "Productos premium para el cuidado de la piel y cosméticos para una piel radiante y saludable",
+                "shop-now": "Comprar Ahora",
+                "categories-title": "Comprar por Categoría",
+                "skincare": "Cuidado de la Piel",
+                "skincare-desc": "Limpiadores, hidratantes, sueros",
+                "makeup": "Maquillaje",
+                "makeup-desc": "Base de maquillaje, lápiz labial, sombra de ojos",
+                "haircare": "Cuidado del Cabello",
+                "haircare-desc": "Champú, acondicionador, tratamientos",
+                "fragrance": "Fragancia",
+                "fragrance-desc": "Perfumes, brumas corporales, velas",
+                "featured-title": "Productos Destacados",
+                "vitamin-c": "Suero Iluminador de Vitamina C",
+                "vitamin-c-desc": "Ilumina la piel y reduce las manchas oscuras",
+                "hydrating-cream": "Crema Hidratante Diurna",
+                "hydrating-cream-desc": "Hidratación de 24 horas con FPS 30",
+                "matte-lipstick": "Colección de Lápices Labiales Mate",
+                "matte-lipstick-desc": "Colores vibrantes de larga duración",
+                "add-to-cart": "Añadir al Carrito",
+                "about-title": "Sobre GlamourGlow",
+                "about-desc1": "En GlamourGlow, creemos que la belleza proviene de abrazar tu ser natural. Nuestros productos están elaborados con cuidado utilizando ingredientes naturales de origen ético que realzan tu belleza natural.",
+                "about-desc2": "Fundada en 2010 por la experta en cuidado de la piel Elena Rodríguez, nuestra misión siempre ha sido crear productos que sean efectivos, sostenibles y libres de crueldad.",
+                "natural": "Ingredientes Naturales",
+                "sustainable": "Envases Sostenibles",
+                "cruelty": "Libre de Crueldad",
+                "global": "Envío Mundial",
+                "learn-more": "Saber Más",
+                "newsletter-title": "Únete a Nuestra Comunidad de Belleza",
+                "newsletter-desc": "Suscríbete a nuestro boletín para obtener ofertas exclusivas, consejos de belleza y lanzamientos de nuevos productos.",
+                "email-placeholder": "Tu dirección de correo",
+                "subscribe": "Suscribirse",
+                "footer-company": "Empresa",
+                "footer-about": "Sobre Nosotros",
+                "footer-careers": "Carreras",
+                "footer-press": "Prensa",
+                "footer-sustainability": "Sostenibilidad",
+                "footer-customer": "Servicio al Cliente",
+                "footer-contact": "Contáctenos",
+                "footer-faq": "Preguntas Frecuentes",
+                "footer-shipping": "Política de Envío",
+                "footer-returns": "Devoluciones y Cambios",
+                "footer-connect": "Conéctate con Nosotros",
+                "copyright": "© 2023 GlamourGlow Beauty. Todos los derechos reservados."
+            },
+            zh: {
+                "home": "首页",
+                "products": "产品",
+                "categories": "分类",
+                "about": "关于我们",
+                "contact": "联系我们",
+                "language": "中文",
+                "hero-title": "发现您的自然之美",
+                "hero-subtitle": "高级护肤和化妆品，打造容光焕发的健康肌肤",
+                "shop-now": "立即购买",
+                "categories-title": "按类别购物",
+                "skincare": "护肤",
+                "skincare-desc": "洁面乳、保湿霜、精华液",
+                "makeup": "彩妆",
+                "makeup-desc": "粉底、口红、眼影",
+                "haircare": "护发",
+                "haircare-desc": "洗发水、护发素、护理",
+                "fragrance": "香水",
+                "fragrance-desc": "香水、身体喷雾、香薰蜡烛",
+                "featured-title": "特色产品",
+                "vitamin-c": "维生素C亮肤精华",
+                "vitamin-c-desc": "提亮肤色，减少黑斑",
+                "hydrating-cream": "保湿日霜",
+                "hydrating-cream-desc": "24小时保湿，SPF 30",
+                "matte-lipstick": "哑光唇膏系列",
+                "matte-lipstick-desc": "持久鲜艳的色彩",
+                "add-to-cart": "加入购物车",
+                "about-title": "关于GlamourGlow",
+                "about-desc1": "在GlamourGlow，我们相信美丽来自于拥抱真实的自己。我们的产品精心打造，采用符合道德标准的天然成分，能够增强您的自然美。",
+                "about-desc2": "由护肤专家Elena Rodriguez于2010年创立，我们的使命始终是创造有效、可持续且零残忍的产品。",
+                "natural": "天然成分",
+                "sustainable": "可持续包装",
+                "cruelty": "零残忍",
+                "global": "全球配送",
+                "learn-more": "了解更多",
+                "newsletter-title": "加入我们的美容社区",
+                "newsletter-desc": "订阅我们的通讯，获取独家优惠、美容技巧和新品发布信息。",
+                "email-placeholder": "您的邮箱地址",
+                "subscribe": "订阅",
+                "footer-company": "公司",
+                "footer-about": "关于我们",
+                "footer-careers": "职业",
+                "footer-press": "新闻",
+                "footer-sustainability": "可持续性",
+                "footer-customer": "客户服务",
+                "footer-contact": "联系我们",
+                "footer-faq": "常见问题",
+                "footer-shipping": "配送政策",
+                "footer-returns": "退换政策",
+                "footer-connect": "联系我们",
+                "copyright": "© 2023 GlamourGlow Beauty。保留所有权利。"
+            }
+        };
+
+        // Set default language to English
+        let currentLang = 'en';
+
+        // Function to change language
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+            
+            // Update language switcher text
+            const languageText = document.querySelector('#languageSwitcher span[data-i18n="language"]');
+            if (languageText && translations[lang] && translations[lang]["language"]) {
+                languageText.textContent = translations[lang]["language"];
+            }
+        }
+
+        // Initialize language switcher
+        document.getElementById('languageSwitcher').addEventListener('click', function() {
+            document.getElementById('languageOptions').classList.toggle('show');
+        });
+
+        // Handle language selection
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.getAttribute('data-lang');
+                changeLanguage(lang);
+                document.getElementById('languageOptions').classList.remove('show');
+            });
+        });
+
+        // Close language options when clicking outside
+        window.addEventListener('click', function(e) {
+            if (!e.target.closest('#languageSwitcher') && !e.target.closest('#languageOptions')) {
+                document.getElementById('languageOptions').classList.remove('show');
+            }
+        });
+
+        // Initialize with default language
+        changeLanguage(currentLang);
+    </script>
+</body>
+</html>
